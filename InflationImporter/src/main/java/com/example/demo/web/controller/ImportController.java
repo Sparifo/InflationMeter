@@ -1,8 +1,10 @@
 package com.example.demo.web.controller;
 
+import com.example.demo.service.ImportXlsx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +21,17 @@ public class ImportController {
 
     private static final Logger logger = LoggerFactory.getLogger(ImportController.class);
 
-    @Autowired
     private ApplicationEventPublisher eventPublisher;
+    private ImportXlsx importXlsx;
+
+    @Value("${director.to.check}")
+    private String directorToCheck;
+
+    @Autowired
+    public ImportController(ApplicationEventPublisher eventPublisher, ImportXlsx importXlsx) {
+        this.eventPublisher = eventPublisher;
+        this.importXlsx = importXlsx;
+    }
 
     public ImportController() {
         super();
@@ -28,6 +39,8 @@ public class ImportController {
 
     @GetMapping(value = "/")
     public ResponseEntity getImportXslx(final HttpServletResponse response) {
+
+        importXlsx.checkFileExist(directorToCheck);
 
         return ResponseEntity.ok()
                 .body("Work");
