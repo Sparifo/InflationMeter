@@ -14,16 +14,13 @@ public class ImportXlsx {
 
     private static final Logger logger = LoggerFactory.getLogger(ImportXlsx.class);
 
-    public Optional<Object> checkFileExist(String filePathString){
+    public Optional<List<File>> checkFileExist(String filePathString){
         File directory = new File(filePathString);
+
         if(directory.exists() && directory.isDirectory()){
-            return Optional.of(Arrays.stream(directory.list()).toList());
+            return Optional.of(Arrays.stream(directory.listFiles()).toList());
         }
-//
-//
-//        if(f.exists() && !f.isDirectory()) {
-//            return Optional.of(f);
-//        }
+
         return Optional.empty();
     }
 

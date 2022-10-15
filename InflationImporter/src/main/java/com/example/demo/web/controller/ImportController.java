@@ -1,6 +1,7 @@
 package com.example.demo.web.controller;
 
 import com.example.demo.model.Product;
+import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ImportXlsx;
 import com.example.demo.service.ReadXlsx;
 import org.slf4j.Logger;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,14 +31,17 @@ public class ImportController {
     private ImportXlsx importXlsx;
     private ReadXlsx readXlsx;
 
+    private ProductRepository productRepository;
+
     @Value("${director.to.check}")
     private String directorToCheck;
 
     @Autowired
-    public ImportController(ApplicationEventPublisher eventPublisher, ImportXlsx importXlsx, ReadXlsx readXlsx) {
+    public ImportController(ApplicationEventPublisher eventPublisher, ImportXlsx importXlsx, ReadXlsx readXlsx, ProductRepository productRepository) {
         this.eventPublisher = eventPublisher;
         this.importXlsx = importXlsx;
         this.readXlsx = readXlsx;
+        this.productRepository = productRepository;
     }
 
     public ImportController() {
@@ -45,17 +51,21 @@ public class ImportController {
     @GetMapping(value = "/")
     public ResponseEntity getImportXslx(final HttpServletResponse response) {
 
-        Optional<Object> fileXlsxOptional = importXlsx.checkFileExist(directorToCheck);
+        Optional<List<File>> fileXlsxOptional = importXlsx.checkFileExist(directorToCheck);
 
         if(fileXlsxOptional.isPresent()){
 
             List<File> fileXls = (List<File>)fileXlsxOptional.get();
 
+            List<Product> products = new ArrayList<>();
             for(File xsl : fileXls) {
-                List<Product> products = readXlsx.readFile(xsl.getAbsolutePath());
+                products.addAll(readXlsx.readFile(xsl.getAbsolutePath()));
+                logger.info("END OD FILE");
             }
 
+            productRepository.saveAll(products);
 
+            logger.info("END OD WORK");
             return ResponseEntity.ok()
                     .body("Work");
         }else{

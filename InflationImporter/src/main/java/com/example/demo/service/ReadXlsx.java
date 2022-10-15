@@ -44,6 +44,7 @@ public class ReadXlsx {
                     fillProduct(row, a, product);
                     products.add(product);
                     i++;
+                    logger.info("Read cell of xml from {} is {}",row.getRowNum(), i);
                 }
                 missFirstRow=false;
             }
@@ -58,6 +59,7 @@ public class ReadXlsx {
 
     private static void fillProduct(Row row, int a, Product product) {
         for (Cell cell : row) {
+
             switch (a) {
                 case 0:
                     product.setCode(getValueFromCell(cell));
