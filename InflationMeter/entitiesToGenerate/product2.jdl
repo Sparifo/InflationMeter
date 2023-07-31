@@ -1,0 +1,25 @@
+
+entity Product {
+	idProduct Long,
+    code String,
+    region String, 
+    mounth String,
+    name String,
+    type String,
+    year String,
+    value String,
+    currency String,
+    attribute String
+}
+
+// Set pagination options
+paginate Product with infinite-scroll
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Product
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

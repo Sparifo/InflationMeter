@@ -48,6 +48,7 @@ public class CacheConfiguration {
             createCache(cm, com.inflation.meter.myapp.domain.User.class.getName());
             createCache(cm, com.inflation.meter.myapp.domain.Authority.class.getName());
             createCache(cm, com.inflation.meter.myapp.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.inflation.meter.myapp.domain.Product.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

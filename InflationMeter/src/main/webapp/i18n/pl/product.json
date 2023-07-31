@@ -1,0 +1,32 @@
+{
+  "inflationMeterApp": {
+    "product": {
+      "home": {
+        "title": "Product",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Dodaj Product",
+        "createOrEditLabel": "Dodaj lub edytuj: Product",
+        "notFound": "No Products found"
+      },
+      "created": "Utworzono nowy obiekt typu Product z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Product z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Product z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Product {{ id }}?"
+      },
+      "detail": {
+        "title": "Product"
+      },
+      "id": "ID",
+      "code": "Code",
+      "region": "Region",
+      "mounth": "Mounth",
+      "name": "Name",
+      "type": "Type",
+      "year": "Year",
+      "value": "Value",
+      "currency": "Currency",
+      "attribute": "Attribute"
+    }
+  }
+}
